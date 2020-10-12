@@ -71,6 +71,7 @@
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\XMLFile1.xml" />
     <Content Include="StyleSheet1.css" />
     <Content Include="UserControlFooter.ascx" />
     <Content Include="Web.config" />
