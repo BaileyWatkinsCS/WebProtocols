@@ -1,0 +1,26 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="program3_protocols.Site1" %>
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>Test</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link rel="stylesheet" href="StyleSheet1.css">
+</head>
+<body class ="content">
+    <header>Program 3</header>
+    <form id="form1" runat="server">
+        <div>
+             <div class="topnav">
+                <a class="active" href="WebForm1.aspx">Home</a>
+                <a href="WebForm2.aspx">Add Event</a>
+                <a href="WebForm3.aspx">Edit Event</a>
+                <a href="WebForm4.aspx">Remove Event</a>
+             </div> 
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>   
+</body>
+</html>
