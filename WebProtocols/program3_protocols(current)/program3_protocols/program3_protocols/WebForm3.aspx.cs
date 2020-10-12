@@ -11,7 +11,7 @@ namespace program3_protocols
 {
     public partial class WebForm3 : System.Web.UI.Page
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\razzb\Desktop\program3_protocols(current)\program3_protocols(current)\program3_protocols\program3_protocols\App_Data\Database1.mdf;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True");
         protected void Page_Load(object sender, EventArgs e)
         {
             if (this.Page.PreviousPage != null)
