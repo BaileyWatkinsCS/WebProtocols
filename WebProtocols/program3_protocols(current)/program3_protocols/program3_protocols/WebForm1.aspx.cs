@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Xml;
 
 namespace program3_protocols
 {
@@ -88,8 +89,12 @@ namespace program3_protocols
             con.Open();
             SqlDataAdapter sda = new SqlDataAdapter("select EventName, EventDescription, EventTime, EventDate FROM Events", con);
             DataSet ds = new DataSet();
+            DataSet ds2 = new DataSet();
             sda.Fill(ds);
-            socialEvents = ds.Tables[0];
+            ds2.ReadXml(Server.MapPath("~/App_Data/XMLFile1.xml")); //Store the XMl in a data set
+            socialEvents = ds2.Tables[0]; // Load the XML dataset into the datatable
+            //var path = "C:/Users/razzb/OneDrive/Documents/GitHub/WebProtocols/WebProtocols/program3_protocols(current)/program3_protocols/program3_protocols/App_Data/XMLFile1.xml";
+            //ds.WriteXml(path); Un comment this to create an XML file from the stuff in the database file
             con.Close();
         }
 

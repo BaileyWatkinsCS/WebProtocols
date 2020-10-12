@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 namespace program3_protocols
 {
@@ -30,6 +31,29 @@ namespace program3_protocols
             SqlCommand cmd = new SqlCommand(str, con);
             int OBJ = Convert.ToInt32(cmd.ExecuteNonQuery());
             con.Close();
+            try
+            {
+                var path = "C:/Users/razzb/OneDrive/Documents/GitHub/WebProtocols/WebProtocols/program3_protocols(current)/program3_protocols/program3_protocols/App_Data/XMLFile1.xml";
+                XDocument testXML = XDocument.Load(path);
+
+                XElement newEvent = new XElement("Table",
+                                               new XElement("EventName", NameText.Text), new XElement("EventDescription", DescText.Text), new XElement("EventTime", TimeText.Text), new XElement("EventDate", DateText.Text)
+                                           );
+                var lastEvent = testXML.Descendants("Table").Last();
+                int newID = Convert.ToInt32(lastEvent.Attribute("ID").Value);
+                newEvent.SetAttributeValue("ID", 4);
+                testXML.Element("NewDataSet").Add(newEvent);
+                testXML.Save(path);
+            }
+            catch (Exception err)
+            {
+                
+            }
+            //save the document
+
+
+
+
 
         }
     }
