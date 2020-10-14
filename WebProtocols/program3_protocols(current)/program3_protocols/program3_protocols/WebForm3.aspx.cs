@@ -20,7 +20,7 @@ namespace program3_protocols
                 SqlDataReader rdr;
                 string name = "";
                 string desc = "";
-                using ( conn)
+                using (conn)
                 {
                     Control ContentPlaceHolder1 = this.Page.PreviousPage.Master.FindControl("ContentPlaceHolder1");
                     Calendar calendar = (Calendar)ContentPlaceHolder1.FindControl("Calendar1");
@@ -71,14 +71,50 @@ namespace program3_protocols
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            string selecteditem = DropDownList1.SelectedValue;
             using (conn)
             {
-                string selecteditem = DropDownList1.SelectedValue;
-                var query = "UPDATE Events SET EventName = '" + NameText.Text +"', EventDate = '" + DateText.Text + "', EventDescription =  '" + DescText.Text + "', EventTime ='" + TimeText.Text + "' Where EventName =  '" + selecteditem + "' AND EventDate =  '" + Label1.Text + "'";
+                //connection to database
+                var query = "UPDATE Events SET EventName = '" + NameText.Text + "', EventDate = '" + DateText.Text + "', EventDescription =  '" + DescText.Text + "', EventTime ='" + TimeText.Text + "' Where EventName =  '" + selecteditem + "' AND EventDate =  '" + Label1.Text + "'";
                 var cmd = new SqlCommand(query, conn);
                 conn.Open();
                 cmd.ExecuteNonQuery();
                 conn.Close();
+            }
+
+            //using XML File
+            try
+            {
+
+                var path = "E:/WebProtocols/WebProtocols Git/WebProtocols/program3_protocols(current)/program3_protocols/program3_protocols/App_Data/XMLFile1.xml";
+                XElement root = XElement.Load(path);
+
+                var EventNameXML = selecteditem.ToString();
+                var EventDateXML = Label1.Text.ToString();
+
+                var values = root.Descendants("Table")
+                    .Where(i => i.Element("EventName").Value == EventNameXML)
+                    .Where(i => i.Element("EventDate").Value == EventDateXML)
+                    .Select(i => i.Attribute("ID").Value)
+                    .Distinct();
+
+                String Id = values.FirstOrDefault().ToString();
+
+                XElement update = root.Descendants("Table").FirstOrDefault(p => p.Attribute("ID").Value == Id);
+                if (update != null)
+                {
+                    update.Element("EventName").Value = NameText.Text;
+                    update.Element("EventDescription").Value = DescText.Text;
+                    update.Element("EventTime").Value = TimeText.Text;
+                    update.Element("EventDate").Value = DateText.Text;
+                    //root.Add(update);
+                    root.Save(path);
+                }
+
+            }
+            catch (Exception err)
+            {
+                //error msg here
             }
         }
     }

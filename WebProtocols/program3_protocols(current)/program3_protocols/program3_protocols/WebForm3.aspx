@@ -52,7 +52,7 @@
             ControlToValidate ="DescText"
             ErrorMessage="Description Cannot Be Empty"
             CssClass="button" ValidationGroup="vg" ForeColor="Red"></asp:RequiredFieldValidator>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [Events]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True;Connect Timeout=30" SelectCommand="SELECT * FROM [Events]" ProviderName="System.Data.SqlClient"></asp:SqlDataSource>
     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ValidationGroup="vg" />
     <UCFooter:footer ID="footerdiv" runat="server" />
 </asp:Content>

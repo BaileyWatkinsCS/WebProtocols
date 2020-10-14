@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <NewDataSet>
   <Table ID="1">
     <EventName>2</EventName>
@@ -17,5 +17,17 @@
     <EventDescription>Test 2 Test</EventDescription>
     <EventTime>PT13H</EventTime>
     <EventDate>2020-10-10T00:00:00-05:00</EventDate>
+  </Table>
+  <Table ID="4">
+    <EventName>Testadd</EventName>
+    <EventDescription>testadd</EventDescription>
+    <EventTime>11:00:00 PM</EventTime>
+    <EventDate>10/14/2020</EventDate>
+  </Table>
+  <Table ID="5">
+    <EventName>HERE WE GO3</EventName>
+    <EventDescription>HERE WE GO</EventDescription>
+    <EventTime>00:00:00</EventTime>
+    <EventDate>10/21/2020</EventDate>
   </Table>
 </NewDataSet>

@@ -33,7 +33,7 @@ namespace program3_protocols
             con.Close();
             try
             {
-                var path = "C:/Users/razzb/OneDrive/Documents/GitHub/WebProtocols/WebProtocols/program3_protocols(current)/program3_protocols/program3_protocols/App_Data/XMLFile1.xml";
+                var path = "E:/WebProtocols/WebProtocols Git/WebProtocols/program3_protocols(current)/program3_protocols/program3_protocols/App_Data/XMLFile1.xml";
                 XDocument testXML = XDocument.Load(path);
 
                 XElement newEvent = new XElement("Table",
@@ -41,7 +41,7 @@ namespace program3_protocols
                                            );
                 var lastEvent = testXML.Descendants("Table").Last();
                 int newID = Convert.ToInt32(lastEvent.Attribute("ID").Value);
-                newEvent.SetAttributeValue("ID", 4);
+                newEvent.SetAttributeValue("ID", newID + 1);
                 testXML.Element("NewDataSet").Add(newEvent);
                 testXML.Save(path);
             }
