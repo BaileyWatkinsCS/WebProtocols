@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 namespace program3_protocols
 {
@@ -50,14 +51,45 @@ namespace program3_protocols
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            string removeitem = DropDownList1.SelectedValue;
             using (conn)
-            {
-                string removeitem = DropDownList1.SelectedValue;
+            {          
                     var query = "DELETE From Events Where EventName =  '" + removeitem + "' AND EventDate =  '" + Label1.Text +"'";
                     var cmd = new SqlCommand(query, conn);
                     conn.Open();
                     cmd.ExecuteNonQuery();
                 conn.Close();
+            }
+
+            try
+            {
+
+                var path = "E:/WebProtocols/WebProtocols Git/WebProtocols/program3_protocols(current)/program3_protocols/program3_protocols/App_Data/XMLFile1.xml";
+                XElement root = XElement.Load(path);
+
+                var EventNameXML = removeitem.ToString();
+                var EventDateXML = Label1.Text.ToString();
+
+                var values = root.Descendants("Table")
+                    .Where(i => i.Element("EventName").Value == EventNameXML)
+                    .Where(i => i.Element("EventDate").Value == EventDateXML)
+                    .Select(i => i.Attribute("ID").Value)
+                    .Distinct();
+
+                String Id = values.FirstOrDefault().ToString();
+
+                XElement remove = root.Descendants("Table").FirstOrDefault(p => p.Attribute("ID").Value == Id);
+                if (remove != null)
+                {
+                    remove.Remove();
+                    root.Save(path);
+
+                }           
+
+            }
+            catch (Exception err)
+            {
+                //error msg here
             }
         }
     }

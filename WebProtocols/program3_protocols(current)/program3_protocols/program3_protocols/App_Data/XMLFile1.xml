@@ -25,9 +25,9 @@
     <EventDate>10/14/2020</EventDate>
   </Table>
   <Table ID="5">
-    <EventName>HERE WE GO3</EventName>
-    <EventDescription>HERE WE GO</EventDescription>
+    <EventName>BugTest1</EventName>
+    <EventDescription>BugTest1</EventDescription>
     <EventTime>00:00:00</EventTime>
-    <EventDate>10/21/2020</EventDate>
+    <EventDate>10/28/2020</EventDate>
   </Table>
 </NewDataSet>
