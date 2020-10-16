@@ -1,23 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Data;
 using System.Drawing;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
-using System.Xml;
 
 namespace program3_protocols
 {
 
+
     public partial class WebForm1 : System.Web.UI.Page
     {
+        protected DataGrid DataGrid1;
+        private DataTable socialEvents = new DataTable();
         SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True");
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //buttons will be hidden unless something is in DB or XML
             BuildSocialEventTable();
             Button1.Visible = true;
             Button2.Visible = false;
@@ -31,27 +31,21 @@ namespace program3_protocols
                 TextBox Date = (TextBox)ContentPlaceHolder1.FindControl("DateText");
                 TextBox Desc = (TextBox)ContentPlaceHolder1.FindControl("DescText");
             }
-
-
         }
-
-
 
         protected void Calendar1_DayRender(object sender, DayRenderEventArgs e)
         {
+            //Formats and renders what day is in database to highlight on calendar
             DataRow[] rows = socialEvents.Select(
                   String.Format(
                      "EventDate >= #{0}# AND EventDate < #{1}#",
                      e.Day.Date.ToShortDateString(),
-                     e.Day.Date.AddDays(1).ToShortDateString()
-                  )
-               );
+                     e.Day.Date.AddDays(1).ToShortDateString()));
+
             foreach (DataRow row in rows)
             {
                 e.Cell.BackColor = Color.Wheat;
             }
-
-
         }
 
         public void Calendar1_SelectionChanged(object sender, EventArgs e)
@@ -60,9 +54,9 @@ namespace program3_protocols
             view.RowFilter = String.Format(
                               "EventDate >= #{0}# AND EventDate < #{1}#",
                               Calendar1.SelectedDate.ToShortDateString(),
-                              Calendar1.SelectedDate.AddDays(1).ToShortDateString()
-                           );
+                              Calendar1.SelectedDate.AddDays(1).ToShortDateString());
 
+            //if in DB you can see the event
             if (view.Count > 0)
             {
                 Button2.Visible = true;
@@ -76,8 +70,6 @@ namespace program3_protocols
                 GridView1.Visible = false;
             }
         }
-        protected System.Web.UI.WebControls.DataGrid DataGrid1;
-        private DataTable socialEvents = new DataTable();
 
         protected void Button1_Click(object sender, EventArgs e)
         {

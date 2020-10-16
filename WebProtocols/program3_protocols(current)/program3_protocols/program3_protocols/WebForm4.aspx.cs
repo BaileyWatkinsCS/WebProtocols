@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
@@ -15,6 +13,10 @@ namespace program3_protocols
         public static string globaldate;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            //if there is a previous page this will load the date from the previous calander and then get a ,list of event names on that name from the DB
+            //XML Selection not utilized here could be implemented but not at the same time 
+            //without adding a select from database function.
             if (this.Page.PreviousPage != null)
             {
                 SqlDataReader rdr;
@@ -44,13 +46,9 @@ namespace program3_protocols
             }
         }
 
-        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         protected void Button1_Click(object sender, EventArgs e)
         {
+            //Selects item from drop down based on the date removed and then removes it using DB
             string removeitem = DropDownList1.SelectedValue;
             using (conn)
             {          
@@ -63,13 +61,14 @@ namespace program3_protocols
 
             try
             {
-
-                var path = "E:/WebProtocols/WebProtocols Git/WebProtocols/program3_protocols(current)/program3_protocols/program3_protocols/App_Data/XMLFile1.xml";
+                //XML Remove
+                var path = Server.MapPath("~/App_Data/XMLFile1.xml");
                 XElement root = XElement.Load(path);
 
                 var EventNameXML = removeitem.ToString();
                 var EventDateXML = Label1.Text.ToString();
 
+                //gets ID of event based on Name and Date of Event
                 var values = root.Descendants("Table")
                     .Where(i => i.Element("EventName").Value == EventNameXML)
                     .Where(i => i.Element("EventDate").Value == EventDateXML)
@@ -83,14 +82,17 @@ namespace program3_protocols
                 {
                     remove.Remove();
                     root.Save(path);
-
                 }           
-
             }
             catch (Exception err)
             {
-                //error msg here
+                Console.WriteLine(err);
             }
+        }
+
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
